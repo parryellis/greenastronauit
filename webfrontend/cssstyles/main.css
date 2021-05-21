@@ -1,20 +1,31 @@
 body {
-  background-image: url(../img/profile_pic.jpg);
-  background-size:  cover;
-  background-repeat: no-repeat;
-  background-position: center;
+	background-image: url(../img/blue_giant.jpg);
+	background-size: cover;
 }
-
 
 h2 {
-  background-color: green ;
+	text-decoration: underline;
 }
 
-.img-profile {
-  background-image: url(../img/profile_pic.jpg);
-  padding: 300px 300px;
-  margin: 100px;
+#title {
+	text-align: center;
+}
 
-  background-repeat: no-repeat;
+.divider {
+	height: 300px;
+}
 
+.objective {
+	font-style: italic;
+}
+
+.resume {
+	background-color: white;
+	border: 1px solid black;
+	margin: 0 auto;
+	width: 70%;
+}
+
+.section {
+	padding: 0 20px;
 }
