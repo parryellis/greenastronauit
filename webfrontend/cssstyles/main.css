@@ -29,3 +29,10 @@ h2 {
 .section {
 	padding: 0 20px;
 }
+
+.credential {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 65%; }
