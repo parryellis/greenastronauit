@@ -5,10 +5,12 @@ body {
 
 h2 {
 	text-decoration: underline;
+	color: green;
 }
 
 #title {
 	text-align: center;
+	color: green;
 }
 
 .divider {
@@ -31,8 +33,31 @@ h2 {
 }
 
 .credential {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 65%; }
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.credential div {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 75%;
+	height: 55px;
+}
+
+.credential-head {
+	font-weight: bold;
+	color: green;
+}
+
+.credential-name {
+	font-weight: bold;
+	width: 45%;
+}
+
+.credential div span:not(.credential-name) {
+	width: 28%; 
+}
