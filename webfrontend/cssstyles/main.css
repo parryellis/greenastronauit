@@ -13,6 +13,12 @@ h2 {
 	color: green;
 }
 
+#visitor {
+	font-size: 20px;
+	font-style: italic;
+	text-align: center;
+}
+
 .divider {
 	height: 300px;
 }
