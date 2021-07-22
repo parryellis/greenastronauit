@@ -1,6 +1,5 @@
 const { CosmosClient } = require("@azure/cosmos");
 
-
 // initialization
 const cosmosEndpoint = process.env.COSMOS_ENDPOINT;
 const cosmosKey = process.env.COSMOS_KEY;
@@ -16,18 +15,22 @@ const table = database != null ? database.container(tableName) : null;
 
 // execute with Azure Functions
 module.exports = async function (context, req) {
-    main(context);
+	try {
+		await main(context, req);
+	}
+	catch(err){
+		log(context,'root', `error: ${err}`);
+	}
 }
 
+// uncomment to execute locally
+// main(null, null);
 
-// execute locally
-console.log(main(null));
+async function main(context, req){
+	log(context,'main', `'req': ${req}`);
 
-
-async function main(context){
-	
 	if(!table){
-        console.log("'table' not initialized");
+        log(context, 'main', "'table' not initialized");
 		if(context != null){
 			context.res = {
 				status: 500,
@@ -37,63 +40,66 @@ async function main(context){
 			};
 		}
     }
+	const id = '1';
+	log(context,'main', `'table': ${tableName}, 'id': ${id}`);
 	try {
-		const id = '1';
-		//await deleteVisitorCount(context, id);
-		
 		let visitorCount = await retrieveVisitorCount(context, id);
 		if (visitorCount){
 			visitorCount = await updateVisitorCount(context, id, visitorCount);
 		} else {
 			visitorCount = await createVisitorCount(context, id);
 		}
+
+		const result = {
+			status: 200,
+			body: {
+				visitors: visitorCount
+			}
+		};
 		
 		if(context != null){
-			context.res = {
-				status: 200,
-				body: {
-					visitors: visitorCount
-				}
-			};
+			context.res = result;
+		} else {
+			log(context,'main', `'result': ${JSON.stringify(result)}`)
 		}
 	}
 	catch(err){
-		console.log(`error: ${err}`);
+		log(context, 'main', `'error': ${err}`);
 	}
 }
 
 async function createVisitorCount(context, id){
-    console.log(`create: table: ${tableName}, id: ${id}`);
     const { resource: createResponse } = await table.items.create({
         id, visitorCount: 1
     });
-    console.log(`'createResponse': ${JSON.stringify(createResponse)}`);
-    return createResponse;
+	const visitorCount = createResponse.visitorCount;
+	log(context, 'createVisitorCount', `'visitorCount': ${visitorCount}`);
+	return visitorCount;
 }
 
 async function retrieveVisitorCount(context, id){
-    console.log(`retrieve: table: ${tableName}, id: ${id}`);
     const { resources: retrieveResponse } = await table.items
-        .query({query: `select c.visitorCount from c where c.id = ${id}`})
+        .query({query: `select * from c where c.id = "${id}"`})
         .fetchAll();
-		
-	console.log(`'retrieveResponse': ${JSON.stringify(retrieveResponse)}`);
-    return retrieveResponse != null ? retrieveResponse[0].visitorCount : null;
+
+    const visitorCount = retrieveResponse?.length > 0 ? retrieveResponse[0].visitorCount : null;
+	log(context, 'retrieveVisitorCount',`'visitorCount': ${visitorCount}`);
+    return visitorCount;
 }
 
 async function updateVisitorCount(context, id, currentVisitorCount){
-    console.log(`update: table: ${tableName}, id: ${id}`);
     const { resource: updateResponse } = await table.item(id).replace({
         id, visitorCount: currentVisitorCount + 1
     });
-    console.log(`'updateResponse': ${JSON.stringify(updateResponse)}`);
-    return updateResponse;
+
+    const visitorCount = updateResponse.visitorCount;
+    log(context, 'updateVisitorCount', `'visitorCount': ${visitorCount}`);
+    return visitorCount;
 }
 
-async function deleteVisitorCount(context, id){
-    console.log(`delete: table: ${tableName}, id: ${id}`);
-    const { resource: deleteResponse } = await table.item(id).delete();
-    console.log(`'deleteResponse': ${JSON.stringify(deleteResponse)}`);
+function log(context, method, message){
+	const spaces = 20 - method.length;
+	(context != null ? context : console).log(`${method}${" ".repeat(spaces)} -- ${message}`);
 }
 
 
