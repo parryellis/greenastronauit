@@ -49,38 +49,38 @@
 		  CERTIFICATIONS
 		</h2>
 		<div class="credential">
-		   <div class="credential-head"> 
-			  <span class="credential-name">Credential Name</span>  
-			  <span>Credential ID</span> 
+		   <div class="credential-head">
+			  <span class="credential-name">Credential Name</span>
+			  <span>Credential ID</span>
 			  <span>Vendor Logo</span>
 		   </div>
-		   <div> 
-			  <span class="credential-name">Project Management Professional (P.M.P)</span>  
-			  <span>3001978</span> 
+		   <div>
+			  <span class="credential-name">Project Management Professional (P.M.P)</span>
+			  <span>3001978</span>
 			  <span><img src="img/Picture1.png" alt="PMP" /></span>
 		   </div>
-		   <div> 
-			  <span class="credential-name">AWS CERTIFIED SOLUTION ARCHITECT ASSOCIATE</span>  
-			  <span>SS0N01CDK111QPWP</span> 
+		   <div>
+			  <span class="credential-name">AWS CERTIFIED SOLUTION ARCHITECT ASSOCIATE</span>
+			  <span>SS0N01CDK111QPWP</span>
 			  <span><img src="img/Picture2.png" alt="AWS" /></span>
 		   </div>
-		   <div> 
+		   <div>
 			  <span class="credential-name">OSHA 30 – Hour Construction with Voice Authentication</span>
-			  <span>30095187</span> 
+			  <span>30095187</span>
 			  <span><img src="img/Picture3.png" alt="OSHA" /></span>
 		   </div>
-		   <div> 
-			  <span class="credential-name">OSH Guidance on Viral Exposure for All Industries</span>  
-			  <span>30913665</span> 
+		   <div>
+			  <span class="credential-name">OSH Guidance on Viral Exposure for All Industries</span>
+			  <span>30913665</span>
 			  <span><img src="img/Picture3.png" alt="OSHA" /></span>
 		   </div>
-		   <div> 
-			  <span class="credential-name">AUTODESK AUTOCAD CERTIFIED PROFESSIONAL</span>  
+		   <div>
+			  <span class="credential-name">AUTODESK AUTOCAD CERTIFIED PROFESSIONAL</span>
 			  <span>wX2sp-48bN</span>
 			  <span><img src="img/Picture4.jpg" alt="Autodesk" /></span>
 		   </div>
-		   <div> 
-			  <span class="credential-name">AUTODESK AUTOCAD CERTIFIED USER</span>  
+		   <div>
+			  <span class="credential-name">AUTODESK AUTOCAD CERTIFIED USER</span>
 			  <span>6HRP-DTSJ </span>
 			  <span><img src="img/Picture4.jpg" alt="Autodesk" /></span>
 		   </div>
@@ -211,14 +211,13 @@
 
 	$.ajax({
 	  type: 'POST',
-	  url: 'https://putsreq.com/uKCVtktyEqX0mZ2aZzIE',
+	  url: 'https://grounhog.azurewebsites.net/api/coincount',
 	  contentType: 'application/json',
 	  success: function(data){
 		const response = JSON.parse(data);
-		const responseBody = 200 === response.status ? response.body : null;
-		if(responseBody){
+		if(response){
 			const visitorElement = document.getElementById('visitor');
-			visitorElement.innerHTML = `there have been ${responseBody.visitors} visitors`;
+			visitorElement.innerHTML = `there have been ${response.visitors} visitors`;
 		}
 	  }
 	});
