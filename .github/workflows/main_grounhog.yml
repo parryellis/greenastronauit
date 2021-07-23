@@ -5,8 +5,9 @@ name: Build and deploy Node.js project to Azure Function App - grounhog
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    paths:
+    - dogez/**
   workflow_dispatch:
 
 env:
